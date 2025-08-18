@@ -1,7 +1,40 @@
 ﻿@page "/"
+@using Models
+<PageTitle>Game Catalog</PageTitle>
 
-<PageTitle>Home</PageTitle>
+<table>
+    <thead>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Genre
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Release Date
+        </th>
+        <th>
 
-<h1>Hello, world!</h1>
+        </th>
+    </thead>
+    <tbody>
 
-Welcome to your new app.12345
+    </tbody>
+</table>
+
+
+@code {
+    private GameSummary[] games =
+    [
+    new (){
+Id=1,Genre="Street Fighter 2",Name
+}
+    ]
+
+}
