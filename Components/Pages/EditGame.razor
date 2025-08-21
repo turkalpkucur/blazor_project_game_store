@@ -41,13 +41,14 @@ else
                     <label for="releaseDate" class="form-label">Release Date:</label>
                     <InputDate id="releaseDate" @bind-Value="game.ReleaseDate" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary"></button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>
         </div>
     </div>
 }
 
 @code {
+    [SupplyParameterFromForm]
     private GameDetails game { get; set; } = new()
     {
         Name = string.Empty,
