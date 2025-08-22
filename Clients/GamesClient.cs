@@ -46,4 +46,20 @@ ReleaseDate=new DateOnly(2022,9,27)
         };
         games.Add(GameSummary);
     }
+
+    public GameDetails GetGame(int id)
+    {
+        var game = games.Find(g => g.Id == id);
+        ArgumentNullException.ThrowIfNull(game);
+        var genre = genres.Single(g => g.Name == game.Genre);
+        GameDetails obj = new GameDetails()
+        {
+            Name = game.Name,
+            GenreId = genre.Id.ToString(),
+            Price = game.Price,
+            ReleaseDate = game.ReleaseDate,
+            Id = id
+        };
+        return obj;
+    }
 }
