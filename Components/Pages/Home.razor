@@ -1,5 +1,7 @@
 ﻿@page "/"
+
 @inject GamesClient Client
+@attribute [StreamRendering]
 <PageTitle>Game Catalog</PageTitle>
 <div class="mt-2">
     <a class="btn btn-primary" role="button" href="/editgame">New Game</a>
