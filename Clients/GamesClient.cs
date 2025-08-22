@@ -2,7 +2,7 @@
 using GameStore.Frontend.Models;
 namespace GameStore.Frontend.Clients;
 
-public class GamesClient
+public class GamesClient(HttpClient httpClient)
 {
     private readonly List<GameSummary> games =
     [
@@ -26,7 +26,7 @@ Price=69.99M,
 ReleaseDate=new DateOnly(2022,9,27)
 },
 ];
-    private readonly Genre[] genres = new GenresClient().GetGenres();
+    private readonly Genre[] genres = new GenresClient(httpClient).GetGenres();
     public GameSummary[] GetGames() => [.. games];
 
     public void AddGame(GameDetails game)
