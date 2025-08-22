@@ -69,6 +69,12 @@ ReleaseDate=new DateOnly(2022,9,27)
         existingGame.ReleaseDate = updatedGame.ReleaseDate;
 
     }
+
+    public void DeleteGame(int id)
+    {
+        var game = GetGameSummaryById(id);
+        games.Remove(game);
+    }
     private GameSummary GetGameSummaryById(int id)
     {
         var game = games.Find(g => g.Id == id);
