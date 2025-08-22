@@ -27,7 +27,7 @@ ReleaseDate=new DateOnly(2022,9,27)
 },
 ];
     private readonly Genre[] genres = new GenresClient(httpClient).GetGenres();
-    public GameSummary[] GetGames() => [.. games];
+    public async Task<GameSummary[]> GetGamesAsync() => await httpClient.GetFromJsonAsync<GameSummary[]>("games") ?? [];
 
     public void AddGame(GameDetails game)
     {
@@ -43,38 +43,11 @@ ReleaseDate=new DateOnly(2022,9,27)
         games.Add(GameSummary);
     }
 
-    public GameDetails GetGame(int id)
-    {
-        GameSummary game = GetGameSummaryById(id);
-        var genre = genres.Single(g => g.Name == game.Genre);
-        GameDetails obj = new GameDetails()
-        {
-            Name = game.Name,
-            GenreId = genre.Id.ToString(),
-            Price = game.Price,
-            ReleaseDate = game.ReleaseDate,
-            Id = id
-        };
-        return obj;
-    }
+    public async Task<GameDetails> GetGameAsync(int id) => await httpClient.GetFromJsonAsync<GameDetails>($"games/{id}") ?? throw new Exception("Could not find game!");
 
-    public void UpdateGame(GameDetails updatedGame)
-    {
-        var genre = GetGenreById(updatedGame.GenreId);
-        GameSummary existingGame = GetGameSummaryById(updatedGame.Id);
+    public async Task UpdateGameAsync(GameDetails updatedGame) => await httpClient.PutAsJsonAsync($"games/{updatedGame.Id}", updatedGame);
 
-        existingGame.Name = updatedGame.Name;
-        existingGame.Genre = genre.Name;
-        existingGame.Price = updatedGame.Price;
-        existingGame.ReleaseDate = updatedGame.ReleaseDate;
-
-    }
-
-    public void DeleteGame(int id)
-    {
-        var game = GetGameSummaryById(id);
-        games.Remove(game);
-    }
+    public async Task DeleteGameAsync(int id) => await httpClient.DeleteAsync($"games/{id}");
     private GameSummary GetGameSummaryById(int id)
     {
         var game = games.Find(g => g.Id == id);

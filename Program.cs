@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-var gameStoreApiUrl = "http://localhost:5274";
+var gameStoreApiUrl = builder.Configuration["GameStoreApiUrl"] ?? throw new Exception("GameStore Api Url is not set");
 
 
 builder.Services.AddHttpClient<GamesClient>(g => g.BaseAddress = new Uri(gameStoreApiUrl));
